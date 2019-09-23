@@ -31,13 +31,25 @@ public class Pollo : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        Morir();
+    }
+
+    private void Morir()
+    {
         Instantiate(prefabSangre, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        puntuacion++;
-        txtPuntuacion.text = puntuacion.ToString();
+        if (other.gameObject.CompareTag("Limite") == true)
+        {
+            Morir();
+        } else
+        {
+            puntuacion++;
+            txtPuntuacion.text = puntuacion.ToString();
+        }
+        
     }
 }
