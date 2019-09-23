@@ -10,4 +10,12 @@ public class Pipes : MonoBehaviour
     {
         transform.Translate(Vector3.back * Time.deltaTime * speed);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name == "Limit")
+        {
+            Destroy(gameObject);
+        }
+    }
 }
