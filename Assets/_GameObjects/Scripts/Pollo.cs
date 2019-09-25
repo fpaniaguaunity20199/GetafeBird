@@ -5,15 +5,23 @@ using UnityEngine.UI;
 
 public class Pollo : MonoBehaviour
 {
-    public int puntuacion = 0;
+    //********************************************
+    //ZONA DE DECLARACION
+    //********************************************
     Rigidbody rb;//Declaración
+    AudioSource audioSource;//Audio source el audioSource
+    public int puntuacion = 0;
     public Text txtPuntuacion;
-    [SerializeField] GameObject prefabSangre;//Sistema de particulas de la explosion
     public int fuerza = 550;
+    [SerializeField] GameObject prefabSangre;//Sistema de particulas de la explosion
+    [SerializeField] AudioClip sonidoAlas;
+    [SerializeField] AudioClip sonidoPuntuacion;
+    [SerializeField] GameObject botonReload;
+
     void Start()
     {
-        print("En el Start");
         rb = GetComponent<Rigidbody>();//Inicialización
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -26,6 +34,7 @@ public class Pollo : MonoBehaviour
 
     void Saltar()
     {
+        audioSource.PlayOneShot(sonidoAlas);
         rb.AddForce(Vector3.up * fuerza);//0,1,0
     }
 
@@ -36,7 +45,9 @@ public class Pollo : MonoBehaviour
 
     private void Morir()
     {
+        botonReload.SetActive(true);
         Instantiate(prefabSangre, transform.position, transform.rotation);
+        GameManager.playing = false;
         Destroy(gameObject);
     }
 
@@ -47,6 +58,7 @@ public class Pollo : MonoBehaviour
             Morir();
         } else
         {
+            audioSource.PlayOneShot(sonidoPuntuacion);
             puntuacion++;
             txtPuntuacion.text = puntuacion.ToString();
         }

@@ -10,14 +10,11 @@ public class PipesSpawner : MonoBehaviour
     {
         InvokeRepeating("SpawnPipe", 0, ratio);//Cada 'ratio' segundos, empezando de inmediato
     }
-
-    void Update()
-    {
-        
-    }
-
     void SpawnPipe()
     {
-        Instantiate(prefabPipe, transform);
+        if (GameManager.playing == true)
+        {
+            Instantiate(prefabPipe, transform);
+        }
     }
 }
