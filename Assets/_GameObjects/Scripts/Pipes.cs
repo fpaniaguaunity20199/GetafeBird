@@ -25,7 +25,6 @@ public class Pipes : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        print(collision.gameObject.name);
         if (collision.gameObject.name == "Limit")
         {
             Destroy(gameObject);
